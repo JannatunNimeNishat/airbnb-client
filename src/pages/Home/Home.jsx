@@ -1,10 +1,10 @@
+import Filter from "./Filter/Filter";
 
 
 const Home = () => {
     return (
         <div>
-            this is home
-            
+            <Filter/>
         </div>
     );
 };

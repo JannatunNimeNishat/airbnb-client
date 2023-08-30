@@ -13,6 +13,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import format from 'date-fns/format'
 // 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -67,31 +68,43 @@ const Navbar = () => {
             {/* <nav className={`${showSearchOptions ? 'h-[400px]' : '' }  flex   justify-between my-container p-4`}> */}
             <nav className={` flex items-center  justify-between my-container ${showSearchOptions ? 'p-4' : 'p-4'}  `}>
                 {/* logo */}
-                <figure>
+                <Link to='/'>
                     <img src={main_logo} alt="" />
-                </figure>
+                </Link>
 
                 {/* search */}
                 <div className={`${showSearchOptions ? 'hidden' : 'flex '} cursor-pointer h-[48px] rounded-[48px]  items-center  gap-3 border shadow-lg`}
                     onClick={() => setShowSearchOptions(true)}
                 >
+                    {
+                        location ?
 
-                    <h3 className='pl-[24px] font-semibold'>Anywhere</h3>
+                        <h3 className='pl-[24px] font-semibold'>{location}</h3>
+                        :
+                        <h3 className='pl-[24px] font-semibold'>Anywhere</h3>
+
+                    }
                     <div className='h-6 w-[2px] bg-[#DDD]'></div>
                     <h3 className='font-semibold'>Any week</h3>
                     <div className='h-6 w-[2px] bg-[#DDD]'></div>
 
                     <div className='flex items-center justify-evenly gap-3 pr-[12px]'>
-                        {/* <input className='w-3/5 ' type="text" placeholder='Add guests' name="" id="" /> */}
+                       {
+                        totalGust !== 0 ?
+                        <p className='text-[#717171]'>{totalGust} guests</p>
+                        :
                         <p className='text-[#717171]'>Add guests</p>
+
+                       }
                         <img className='' src={search_logo} alt="" />
                     </div>
                 </div>
 
                 {/* details search */}
-                <div className={`${showSearchOptions ? '' : 'hidden'} transition-all`}
+                <div className={`${showSearchOptions ? '' : 'hidden'} transition-all `}
                     onClick={() => setShowSearchOptions(false)}
                 >
+                
                     <div className='flex gap-[24px] justify-center '>
                         <h4 className='text-[#717171] cursor-pointer  hover:text-[#3e3d3d] hover:font-semibold'>Stays</h4>
                         <h4 className='text-[#717171] cursor-pointer hover:text-[#3e3d3d] hover:font-semibold'>Experiences</h4>
@@ -117,15 +130,24 @@ const Navbar = () => {
 
 
             {/* tab heads */}
-            <div className={`${showSearchOptions ? 'flex justify-between items-center px-3 ' : 'hidden'}  h-[66px] w-[800px] mx-auto rounded-[48px] border mt-[20px] bg-[#e6e6e6] transition-all`}>
+            <div className={`${showSearchOptions ? 'flex justify-between items-center px-3 ' : 'hidden'}  h-[66px] w-[800px] mx-auto rounded-[48px] border mt-[20px] bg-[#e6e6e6] transition-all relative`}>
+
+            <button onClick={() => setShowSearchOptions(!showSearchOptions)} className='absolute  w-[30px] h-[30px] border-2 hover:bg-[#ff385c] hover:text-white hover:border-none -right-8  top-0 text-black bg-transparent  rounded-full flex items-center justify-center '>X</button>
+
                 {/* where */}
-                <div className={`${activeTab === 1 ? 'bg-white  hover:bg-white' : 'hover:bg-[#dddddd]'} rounded-[48px]  cursor-pointer `}
+                <div className={`${activeTab === 1 ? 'bg-white  hover:bg-white' : 'hover:bg-[#dddddd]'} rounded-[48px]  cursor-pointer relative`}
                     onClick={() => setActiveTab(1)}
                 >
                     <p className='font-semibold pl-3  '>Where</p>
-                    <input className='block pl-3 w-3/4 pb-1 bg-transparent outline-none' type="text" placeholder='Search destinations' name="" id=""
+                    <input className='block pl-3 w-3/4 pb-1 bg-transparent outline-none' type="text" placeholder='Search destinations' name="" id="" value={location}
                         onChange={(event) => setLocation(event.target.value)}
                     />
+                    {
+                        location && <button className='absolute top-3 right-2  h-[25px] w-[25px] rounded-full bg-[#e6e6e6] hover:bg-[#dddddd]'
+                        onClick={()=> setLocation('')}
+                        
+                        >X</button>
+                    }
                 </div>
 
                 {/* Check in */}
