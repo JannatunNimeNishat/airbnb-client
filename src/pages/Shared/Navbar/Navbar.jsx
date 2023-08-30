@@ -19,6 +19,10 @@ const Navbar = () => {
     const [activeTab, setActiveTab] = useState(1);
 
     const [showSearchOptions, setShowSearchOptions] = useState(false);
+
+    // location
+    const [location, setLocation] = useState('');
+
     // date
     const [dateState, setDateState] = useState([
         {
@@ -36,15 +40,26 @@ const Navbar = () => {
             pets: 0,
         }
     ])
-    /*  console.log(
-         'total gust',gust[0].adults + gust[0].children + gust[0].infants + gust[0].pets
-     ); */
+    
     const totalGust = gust[0].adults + gust[0].children + gust[0].infants + gust[0].pets;
     const startDate = format(dateState[0]?.startDate, 'MMM d');
     const endDate = format(dateState[0]?.endDate, 'MMM d');
     /*  console.log('start date',format(dateState[0]?.startDate, 'MMM d'));
      console.log('end date',format(dateState[0]?.endDate, 'MMM d'));
      console.log(dateState[0]?.startDate); */
+
+    const handleSearch = () => {
+        setActiveTab(0)
+        setShowSearchOptions(!showSearchOptions);
+        const finalSearch = {
+            location,
+            startDate,
+            endDate,
+            totalGust
+        }
+        console.log('finalSearch: ', finalSearch);
+    }
+
     return (
 
         <div className={`${!showSearchOptions && 'shadow'}`}>
@@ -56,11 +71,8 @@ const Navbar = () => {
                     <img src={main_logo} alt="" />
                 </figure>
 
-
-
-
                 {/* search */}
-                <div className={`${showSearchOptions ? 'hidden' : 'flex'} cursor-pointer h-[48px] rounded-[48px]  items-center  gap-3 border shadow-lg`}
+                <div className={`${showSearchOptions ? 'hidden' : 'flex '} cursor-pointer h-[48px] rounded-[48px]  items-center  gap-3 border shadow-lg`}
                     onClick={() => setShowSearchOptions(true)}
                 >
 
@@ -77,7 +89,7 @@ const Navbar = () => {
                 </div>
 
                 {/* details search */}
-                <div className={`${showSearchOptions ? '' : 'hidden'}`}
+                <div className={`${showSearchOptions ? '' : 'hidden'} transition-all`}
                     onClick={() => setShowSearchOptions(false)}
                 >
                     <div className='flex gap-[24px] justify-center '>
@@ -87,10 +99,6 @@ const Navbar = () => {
                     </div>
 
                 </div>
-
-                {/* modal */}
-
-
 
 
 
@@ -107,14 +115,17 @@ const Navbar = () => {
 
             </nav>
 
+
             {/* tab heads */}
-            <div className={`${showSearchOptions ? 'flex justify-between items-center px-3' : 'hidden'}  h-[66px] w-[800px] mx-auto rounded-[48px] border mt-[20px] bg-[#e6e6e6] `}>
+            <div className={`${showSearchOptions ? 'flex justify-between items-center px-3 ' : 'hidden'}  h-[66px] w-[800px] mx-auto rounded-[48px] border mt-[20px] bg-[#e6e6e6] transition-all`}>
                 {/* where */}
                 <div className={`${activeTab === 1 ? 'bg-white  hover:bg-white' : 'hover:bg-[#dddddd]'} rounded-[48px]  cursor-pointer `}
                     onClick={() => setActiveTab(1)}
                 >
-                    <p className='font-semibold ml-2'>Where</p>
-                    <input className='block ml-2 w-3/4 bg-transparent ' type="text" placeholder='Search destinations' name="" id="" />
+                    <p className='font-semibold pl-3  '>Where</p>
+                    <input className='block pl-3 w-3/4 pb-1 bg-transparent outline-none' type="text" placeholder='Search destinations' name="" id=""
+                        onChange={(event) => setLocation(event.target.value)}
+                    />
                 </div>
 
                 {/* Check in */}
@@ -184,7 +195,7 @@ const Navbar = () => {
                 }
 
                 {/* search icon */}
-                <button className='bg-[#ff385c] text-white font-semibold flex px-4 py-3 rounded-[48px]'>
+                <button onClick={handleSearch} className='bg-[#ff385c] text-white font-semibold flex items-center px-4 py-3 rounded-[48px]'>
                     <img src={search_logo} alt="" />
                     <span  >Search</span>
                 </button>
@@ -193,7 +204,7 @@ const Navbar = () => {
 
             {/* tab content tab -2 */}
             <div className={`${activeTab === 2 || activeTab === 4 ? 'w-[900px] mx-auto  rounded-[48px] shadow-2xl mt-5 relative' : 'hidden'}`}>
-                <button onClick={() => setActiveTab(0)} className='absolute -right-8  -top-4 px-3 py-1 bg-red-600 text-white rounded-full flex items-center justify-center'>close</button>
+                <button onClick={() => setActiveTab(0)} className='absolute -right-6  -top-4 w-[30px] h-[30px] border-2 hover:bg-[#ff385c] hover:text-white hover:border-none   text-black bg-transparent  rounded-full flex items-center justify-center'>X</button>
                 <DateRangePicker
                     onChange={item => setDateState([item.selection])}
                     showSelectionPreview={true}
@@ -201,15 +212,14 @@ const Navbar = () => {
                     months={2}
                     ranges={dateState}
                     direction="horizontal"
-                    // preventSnapRefocus={true}
                     preventSnapRefocus="disabled"
-                // calendarFocus="backwards"
+
                 />
             </div>
 
             {/* tab content tab - 3 */}
             <div className={`${activeTab === 3 ? 'w-[400px] ml-[700px] bg-white border   rounded-[48px]  mt-5 relative' : 'hidden'}`}>
-                <button onClick={() => setActiveTab(0)} className='absolute  px-5 py-1 bg-red-600 text-white rounded-full flex items-center justify-center -right-5 -top-4'>close</button>
+                <button onClick={() => setActiveTab(0)} className='absolute  w-[30px] h-[30px] border-2 hover:bg-[#ff385c] hover:text-white hover:border-none   text-black bg-transparent  rounded-full flex items-center justify-center -right-3 -top-4'>X</button>
                 <div className='px-6 py-3'>
 
                     {/* adults */}
