@@ -135,7 +135,7 @@ const Filter = () => {
     }
 
     return (
-        <div className="my-container py-[28px]">
+        <div className="my-container py-[28px] ">
 
             {/* swiper slider */}
             <>

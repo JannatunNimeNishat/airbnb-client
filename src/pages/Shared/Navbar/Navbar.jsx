@@ -71,7 +71,7 @@ const Navbar = () => {
         <div className={`${!showSearchOptions && 'shadow'}`}>
 
             {/* <nav className={`${showSearchOptions ? 'h-[400px]' : '' }  flex   justify-between my-container p-4`}> */}
-            <nav className={` flex items-center  justify-between my-container ${showSearchOptions ? 'p-4' : 'p-4'}  `}>
+            <nav className={`  flex items-center  justify-between my-container ${showSearchOptions ? 'p-4' : 'p-4'}  `}>
                 {/* logo */}
                 <Link to='/'>
                     <img src={main_logo} alt="" />
