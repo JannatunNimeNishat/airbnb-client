@@ -525,13 +525,14 @@ const Filter = () => {
 
                                 </div>
 
-
-
                             </div>
 
                             {/* <!-- Modal footer --> */}
-                            <div className="bg-gray-200 px-6 py-4">
-                                Modal Footer
+                            <div className=" border border-solid border-slate-200 px-6 py-4 flex items-center justify-between">
+                                <p className="underline font-bold">Clear all</p>
+                                <button className="w-[172px] h-[50px] rounded-xl font-bold text-white bg-black">
+                                <p>Show <span>770</span> places</p>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -541,14 +542,6 @@ const Filter = () => {
             ) : null}
             {/* modal  end */}
 
-
-
-
-
-
-
-            {/*  <div className="title">Controlled</div>
-            <RangeSlider value={value} onInput={setValue} /> */}
         </div>
     );
 };
