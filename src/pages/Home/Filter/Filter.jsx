@@ -12,6 +12,10 @@ import arrow_right_logo from '../../../assets/filter/arrow_right_logo.png';
 import filter_logo from '../../../assets/filter/filter_logo.png';
 
 import './Filter.css'
+import { BiHome } from "react-icons/bi";
+import apartment from '../../../assets/modal/apartment.png'
+import guest_house from '../../../assets/modal/guest_house.png'
+
 
 /* import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -43,6 +47,87 @@ const Filter = () => {
     const [bedChoice, setBedChoice] = useState(0);
     // bedroom
     const [bathRoomChoice, setbathRoomChoice] = useState(0);
+
+    // property type 
+    const [propertyValue, setPropertyValue] = useState(
+        [
+            {
+                'home': 0,
+                'apartment': 0,
+                'guesthouse': 0,
+            }
+        ]
+    );
+
+
+    // handle Property type selection
+    const handlePropertyTypeSelection = (property, value) => {
+
+        /*  Object.keys(propertyValue[0]).forEach(function(key) {
+          if (propertyValue[0][key] == 'test1') {
+            alert('exists');
+          }
+          console.log(propertyValue[0][key]);
+        }) */
+
+        if (property === 'home') {
+            if (propertyValue[0][property] === 0) {
+
+                setPropertyValue([
+                    {
+                        ...propertyValue[0],
+                        home: 1,
+                    }
+                ])
+            }
+            else {
+                setPropertyValue([
+                    {
+                        ...propertyValue[0],
+                        home: 0,
+                    }
+                ])
+            }
+        }
+        else if (property === 'apartment') {
+            if (propertyValue[0][property] === 0) {
+
+                setPropertyValue([
+                    {
+                        ...propertyValue[0],
+                        apartment: 1,
+                    }
+                ])
+            }
+            else {
+                setPropertyValue([
+                    {
+                        ...propertyValue[0],
+                        apartment: 0,
+                    }
+                ])
+            }
+        }
+        else if (property === 'guesthouse') {
+            if (propertyValue[0][property] === 0) {
+
+                setPropertyValue([
+                    {
+                        ...propertyValue[0],
+                        guesthouse: 1,
+                    }
+                ])
+            }
+            else {
+                setPropertyValue([
+                    {
+                        ...propertyValue[0],
+                        guesthouse: 0,
+                    }
+                ])
+            }
+        }
+    }
 
     // category wise filter
     const handleCategoryFilter = (filterValue) => {
@@ -242,50 +327,50 @@ const Filter = () => {
                                     {/* Bedrooms */}
                                     <p className="my-5">Bedrooms</p>
                                     <div className="flex gap-2 ">
-                                        <div className={`px-[35px] py-[15px]  ${bedRoomChoice === 0 ? 'bg-black text-white': 'hover:border-gray-400'}  border flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                        onClick={()=>setBedRoomChoice(0)}
+                                        <div className={`px-[35px] py-[15px]  ${bedRoomChoice === 0 ? 'bg-black text-white' : 'hover:border-gray-400'}  border flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(0)}
                                         >
                                             Any
                                         </div>
 
 
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 1 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(1)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 1 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(1)}
                                         >
                                             1
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 2 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(2)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 2 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(2)}
                                         >
                                             2
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 3 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(3)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 3 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(3)}
                                         >
                                             3
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 4 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(4)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 4 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(4)}
                                         >
                                             4
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 5 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(5)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 5 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(5)}
                                         >
                                             5
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 6 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(6)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 6 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(6)}
                                         >
                                             6
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 7 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(7)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 7 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(7)}
                                         >
                                             7
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 8 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedRoomChoice(8)}
+                                        <div className={`px-[35px] py-[15px] ${bedRoomChoice === 8 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedRoomChoice(8)}
                                         >
                                             8+
                                         </div>
@@ -298,50 +383,50 @@ const Filter = () => {
                                     {/* Beds */}
                                     <p className="my-5">Beds</p>
                                     <div className="flex gap-2 ">
-                                        <div className={`px-[35px] py-[15px]  ${bedChoice === 0 ? 'bg-black text-white': 'hover:border-gray-400'}  border flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                        onClick={()=>setBedChoice(0)}
+                                        <div className={`px-[35px] py-[15px]  ${bedChoice === 0 ? 'bg-black text-white' : 'hover:border-gray-400'}  border flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(0)}
                                         >
                                             Any
                                         </div>
 
 
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 1 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(1)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 1 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(1)}
                                         >
                                             1
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 2 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(2)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 2 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(2)}
                                         >
                                             2
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 3 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(3)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 3 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(3)}
                                         >
                                             3
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 4 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(4)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 4 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(4)}
                                         >
                                             4
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 5 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(5)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 5 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(5)}
                                         >
                                             5
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 6 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(6)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 6 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(6)}
                                         >
                                             6
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 7 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(7)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 7 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(7)}
                                         >
                                             7
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bedChoice === 8 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setBedChoice(8)}
+                                        <div className={`px-[35px] py-[15px] ${bedChoice === 8 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setBedChoice(8)}
                                         >
                                             8+
                                         </div>
@@ -352,50 +437,50 @@ const Filter = () => {
                                     {/* Bathrooms */}
                                     <p className="my-5">Bathrooms</p>
                                     <div className="flex gap-2 ">
-                                        <div className={`px-[35px] py-[15px]  ${bathRoomChoice === 0 ? 'bg-black text-white': 'hover:border-gray-400'}  border flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                        onClick={()=>setbathRoomChoice(0)}
+                                        <div className={`px-[35px] py-[15px]  ${bathRoomChoice === 0 ? 'bg-black text-white' : 'hover:border-gray-400'}  border flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(0)}
                                         >
                                             Any
                                         </div>
 
 
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 1 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(1)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 1 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(1)}
                                         >
                                             1
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 2 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(2)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 2 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(2)}
                                         >
                                             2
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 3 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(3)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 3 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(3)}
                                         >
                                             3
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 4 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(4)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 4 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(4)}
                                         >
                                             4
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 5 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(5)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 5 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(5)}
                                         >
                                             5
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 6 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(6)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 6 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(6)}
                                         >
                                             6
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 7 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(7)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 7 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(7)}
                                         >
                                             7
                                         </div>
-                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 8 ? 'bg-black text-white': 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
-                                         onClick={()=>setbathRoomChoice(8)}
+                                        <div className={`px-[35px] py-[15px] ${bathRoomChoice === 8 ? 'bg-black text-white' : 'hover:border-gray-400'} border  flex items-center justify-center rounded-[48px] font-semibold cursor-pointer`}
+                                            onClick={() => setbathRoomChoice(8)}
                                         >
                                             8+
                                         </div>
@@ -408,17 +493,38 @@ const Filter = () => {
 
                                 <hr className="mt-8" />
                                 {/*Property type*/}
-                                <div>
-                                <h3 className="text-2xl font-semibold">Property type</h3>
-                                <div>
-                                    
-                                </div>
+                                <div className="mt-5">
+                                    <h3 className="text-2xl font-semibold py-4">Property type</h3>
+                                    <div className="mt-3 flex gap-3">
+
+                                        <div className={`w-[167px] h-[124px] cursor-pointer rounded-2xl  border flex flex-col items-start pl-4 pt-3  ${propertyValue[0].home === 1 ? 'bg-[#f7f7f7]' : 'hover:border-gray-500'}`}
+                                            onClick={() => handlePropertyTypeSelection('home', 1)}
+                                        
+                                        >
+                                            <BiHome className="h-8 w-8 mt-2" />
+                                            <p className="mt-5">Home</p>
+                                        </div>
+
+                                        <div className={`w-[167px] h-[124px] cursor-pointer rounded-2xl  border flex flex-col items-start  pl-4 pt-3 ${propertyValue[0].apartment === 1 ? 'bg-[#f7f7f7]' : 'hover:border-gray-500'}`}
+                                            onClick={() => handlePropertyTypeSelection('apartment', 1)}
+                                        
+                                        >
+                                            <img className="h-8 w-8  mt-2" src={apartment} alt="" />
+                                            <p className="mt-5">Apartment</p>
+                                        </div>
+
+                                        <div className={`w-[167px] h-[124px] cursor-pointer rounded-2xl  border flex flex-col items-start pl-4 pt-3 ${propertyValue[0].guesthouse === 1 ? 'bg-[#f7f7f7]' : 'hover:border-gray-500'}`}
+                                        
+                                        onClick={() => handlePropertyTypeSelection('guesthouse', 1)}
+                                        >
+                                            <img className="h-8 w-8 mt-2" src={guest_house} alt="" />
+                                            <p className="mt-5">Guesthouse</p>
+                                        </div>
+
+                                    </div>
 
                                 </div>
 
-
-
-                             
 
 
                             </div>
