@@ -6,7 +6,7 @@ import hamburger_logo from '../../../assets/navbar/hamburger.png'
 import user_logo from '../../../assets/navbar/user_logo.png'
 import { useState } from 'react';
 // 
-import { addDays } from 'date-fns';
+import { addDays, toDate } from 'date-fns';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -28,7 +28,9 @@ const Navbar = () => {
     const [dateState, setDateState] = useState([
         {
             startDate: new Date(),
+            // startDate: 0,
             endDate: addDays(new Date(), 0),
+            // endDate: 0,
             key: 'selection'
         }
     ])
@@ -48,7 +50,10 @@ const Navbar = () => {
     /*  console.log('start date',format(dateState[0]?.startDate, 'MMM d'));
      console.log('end date',format(dateState[0]?.endDate, 'MMM d'));
      console.log(dateState[0]?.startDate); */
-
+    /*  console.log('start date',dateState[0]?.startDate, typeof dateState[0]?.startDate); 
+    console.log('newDate',new Date(), typeof new Date());
+    console.log(toString(dateState[0]?.startDate) === new Date() ); */
+    console.log('start date',startDate, typeof startDate, typeof format(new Date(), 'MMM d'));
     const handleSearch = () => {
         setActiveTab(0)
         setShowSearchOptions(!showSearchOptions);
@@ -143,7 +148,7 @@ const Navbar = () => {
                         onChange={(event) => setLocation(event.target.value)}
                     />
                     {
-                        location && <button className='absolute top-3 right-2  h-[25px] w-[25px] rounded-full bg-[#e6e6e6] hover:bg-[#dddddd]'
+                        location && activeTab ===1  && <button className='absolute top-3 right-2  h-[25px] w-[25px] rounded-full bg-[#e6e6e6] hover:bg-[#dddddd]'
                         onClick={()=> setLocation('')}
                         
                         >X</button>
@@ -160,9 +165,11 @@ const Navbar = () => {
                     {/* <p className='ml-5 text-[#717171]'>{format(dateState[0]?.startDate, 'MMM d')}</p> */}
                     {
                         startDate ?
-                            <p className='ml-5 text-[#717171]'>{format(dateState[0]?.startDate, 'MMM d')}</p>
-                            :
-                            <p className='ml-5 text-[#717171]'>Add dates</p>
+                        // startDate === format(new Date(), 'MMM d') ?
+                        <p className='ml-5 text-[#717171]'>{format(dateState[0]?.startDate, 'MMM d')}</p>
+                        :
+                        <p className='ml-5 text-[#717171]'>Add dates</p>
+                        // <p className='ml-5 text-[#717171]'>{startDate}</p>
 
                     }
                 </div>
@@ -199,8 +206,8 @@ const Navbar = () => {
                     }
                 </div>
                 {
-                    totalGust !== 0 ?
-                        <p className='text-[12px] -ml-12 cursor-pointer font-semibold'
+                    totalGust !== 0 && activeTab ===3 ?
+                        <p className='text-[12px] -ml-12 cursor-pointer flex justify-center items-center font-semibold h-[25px] w-[25px] rounded-full bg-[#e6e6e6] hover:bg-[#dddddd]'
                             onClick={() => setGuest(
                                 [
                                     {
@@ -230,11 +237,14 @@ const Navbar = () => {
                 <DateRangePicker
                     onChange={item => setDateState([item.selection])}
                     showSelectionPreview={true}
-                    moveRangeOnFirstSelection={false}
+                    // moveRangeOnFirstSelection={false}
                     months={2}
                     ranges={dateState}
                     direction="horizontal"
                     preventSnapRefocus="disabled"
+                    minDate={new Date()}
+                    // preventSnapRefocus="backward"
+                    // disabledDates=
 
                 />
             </div>

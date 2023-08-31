@@ -1,0 +1,14 @@
+#range-slider-black{
+    background: #dddddd;
+}
+#range-slider-black .range-slider__range {
+    background: #222222;
+    transition: height 0.3s;
+  }
+  #range-slider-black .range-slider__thumb {
+    background: white;
+    transition: transform 0.3s;
+    box-shadow: #dddddd;
+    border:1px solid gray;
+  }
+  
