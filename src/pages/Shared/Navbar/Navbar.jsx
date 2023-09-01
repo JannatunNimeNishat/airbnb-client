@@ -54,6 +54,7 @@ const Navbar = () => {
     console.log('newDate',new Date(), typeof new Date());
     console.log(toString(dateState[0]?.startDate) === new Date() ); */
     console.log('start date',startDate, typeof startDate, typeof format(new Date(), 'MMM d'));
+    
     const handleSearch = () => {
         setActiveTab(0)
         setShowSearchOptions(!showSearchOptions);

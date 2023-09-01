@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import SingleDestination from "../SingleDestination/SingleDestination";
+import { DestinationContext } from "../../../provider/DestinationProvider";
 
 
 const Destination = () => {
+    const { destinationState } = useContext(DestinationContext);
+    // console.log('destinations', destinationState);
     return (
         <div className="my-container ">
 
@@ -18,10 +22,17 @@ const Destination = () => {
                     role="switch"
                     id="flexSwitchChecked"
                     checked />
-               
+
+            </div>
+            <div className="grid grid-cols-4 gap-10 mt-8">
+                {
+                    destinationState?.map(singleDestinationData => <SingleDestination
+                        key={singleDestinationData._id}
+                        singleDestinationData={singleDestinationData}
+                    />)
+                }
             </div>
 
-            <SingleDestination />
         </div>
     );
 };
