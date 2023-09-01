@@ -15,17 +15,26 @@ const DestinationProvider = ({ children }) => {
     }, [])
 
     // get destinations by category
-    
+    const getDestinationsByCategory = (destinationValue) => {
+        setDestinationState([])
+    axios.get(`http://localhost:5000/destinations_by_category/${destinationValue}`)
+        .then(res => {
+            console.log('filter by catagory',res.data);
+            setDestinationState(res?.data)
+        })
+        .catch(error => console.log(error))
+    };
 
-    const value = {
-        destinationState,
-        
-    }
-    return (
-        <DestinationContext.Provider value={value}>
-            {children}
-        </DestinationContext.Provider>
-    );
+const value = {
+    destinationState,
+    getDestinationsByCategory
+
+}
+return (
+    <DestinationContext.Provider value={value}>
+        {children}
+    </DestinationContext.Provider>
+);
 };
 
 export default DestinationProvider;

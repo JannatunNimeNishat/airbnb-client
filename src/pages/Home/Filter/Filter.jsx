@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
@@ -15,6 +15,7 @@ import './Filter.css'
 import { BiHome } from "react-icons/bi";
 import apartment from '../../../assets/modal/apartment.png'
 import guest_house from '../../../assets/modal/guest_house.png'
+import { DestinationContext } from "../../../provider/DestinationProvider";
 
 
 /* import { Swiper, SwiperSlide } from 'swiper/react';
@@ -29,8 +30,9 @@ import { FreeMode, Pagination, Navigation } from 'swiper/modules'; */
 
 const Filter = () => {
 
+    const { getDestinationsByCategory } = useContext(DestinationContext);
+
     const [priceSliderValue, setPriceSliderValue] = useState([0, 1000]);
-    console.log('slider value:', priceSliderValue);
 
 
     // const [swiperRef, setSwiperRef] = useState(null);
@@ -63,12 +65,6 @@ const Filter = () => {
     // handle Property type selection
     const handlePropertyTypeSelection = (property, value) => {
 
-        /*  Object.keys(propertyValue[0]).forEach(function(key) {
-          if (propertyValue[0][key] == 'test1') {
-            alert('exists');
-          }
-          console.log(propertyValue[0][key]);
-        }) */
 
         if (property === 'home') {
             if (propertyValue[0][property] === 0) {
@@ -132,6 +128,7 @@ const Filter = () => {
     // category wise filter
     const handleCategoryFilter = (filterValue) => {
         console.log(filterValue);
+        getDestinationsByCategory(filterValue)
     }
 
     return (
@@ -198,12 +195,15 @@ const Filter = () => {
             </>
 
             <div className="flex justify-between items-center">
+
+                <img onClick={() => handleCategoryFilter('cabin')} className="opacity-60 hover:opacity-100 cursor-pointer" src={cabin_logo} alt="" />
+
                 <img onClick={() => handleCategoryFilter('camping')} className="opacity-60 hover:opacity-100 cursor-pointer" src={camp_logo} alt="" />
                 <img onClick={() => handleCategoryFilter('lack_font')} className="opacity-60 hover:opacity-100 cursor-pointer" src={lack_font_logo} alt="" />
 
                 <img onClick={() => handleCategoryFilter('national_park')} className="opacity-60 hover:opacity-100 cursor-pointer" src={national_park_logo} alt="" />
 
-                <img onClick={() => handleCategoryFilter('cabin')} className="opacity-60 hover:opacity-100 cursor-pointer" src={cabin_logo} alt="" />
+
 
 
                 <img onClick={() => handleCategoryFilter('amazing_pools')} className="opacity-60 hover:opacity-100 cursor-pointer" src={amazing_pools} alt="" />
@@ -499,7 +499,7 @@ const Filter = () => {
 
                                         <div className={`w-[167px] h-[124px] cursor-pointer rounded-2xl  border flex flex-col items-start pl-4 pt-3  ${propertyValue[0].home === 1 ? 'bg-[#f7f7f7]' : 'hover:border-gray-500'}`}
                                             onClick={() => handlePropertyTypeSelection('home', 1)}
-                                        
+
                                         >
                                             <BiHome className="h-8 w-8 mt-2" />
                                             <p className="mt-5">Home</p>
@@ -507,15 +507,15 @@ const Filter = () => {
 
                                         <div className={`w-[167px] h-[124px] cursor-pointer rounded-2xl  border flex flex-col items-start  pl-4 pt-3 ${propertyValue[0].apartment === 1 ? 'bg-[#f7f7f7]' : 'hover:border-gray-500'}`}
                                             onClick={() => handlePropertyTypeSelection('apartment', 1)}
-                                        
+
                                         >
                                             <img className="h-8 w-8  mt-2" src={apartment} alt="" />
                                             <p className="mt-5">Apartment</p>
                                         </div>
 
                                         <div className={`w-[167px] h-[124px] cursor-pointer rounded-2xl  border flex flex-col items-start pl-4 pt-3 ${propertyValue[0].guesthouse === 1 ? 'bg-[#f7f7f7]' : 'hover:border-gray-500'}`}
-                                        
-                                        onClick={() => handlePropertyTypeSelection('guesthouse', 1)}
+
+                                            onClick={() => handlePropertyTypeSelection('guesthouse', 1)}
                                         >
                                             <img className="h-8 w-8 mt-2" src={guest_house} alt="" />
                                             <p className="mt-5">Guesthouse</p>
@@ -531,7 +531,7 @@ const Filter = () => {
                             <div className=" border border-solid border-slate-200 px-6 py-4 flex items-center justify-between">
                                 <p className="underline font-bold">Clear all</p>
                                 <button className="w-[172px] h-[50px] rounded-xl font-bold text-white bg-black">
-                                <p>Show <span>770</span> places</p>
+                                    <p>Show <span>770</span> places</p>
                                 </button>
                             </div>
                         </div>
