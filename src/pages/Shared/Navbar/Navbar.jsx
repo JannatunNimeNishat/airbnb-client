@@ -4,7 +4,7 @@ import search_logo from '../../../assets/navbar/search_icon.png'
 import world_logo from '../../../assets/navbar/world.png'
 import hamburger_logo from '../../../assets/navbar/hamburger.png'
 import user_logo from '../../../assets/navbar/user_logo.png'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 // 
 import { addDays, toDate } from 'date-fns';
 import { DateRangePicker } from 'react-date-range';
@@ -14,8 +14,11 @@ import format from 'date-fns/format'
 // 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import { DestinationContext } from '../../../provider/DestinationProvider';
 
 const Navbar = () => {
+
+    const { getDestinationsBySearchValues } = useContext(DestinationContext);
 
     const [activeTab, setActiveTab] = useState(1);
 
@@ -43,18 +46,13 @@ const Navbar = () => {
             pets: 0,
         }
     ])
-    
+
     const totalGust = gust[0].adults + gust[0].children + gust[0].infants + gust[0].pets;
     const startDate = format(dateState[0]?.startDate, 'MMM d');
     const endDate = format(dateState[0]?.endDate, 'MMM d');
-    /*  console.log('start date',format(dateState[0]?.startDate, 'MMM d'));
-     console.log('end date',format(dateState[0]?.endDate, 'MMM d'));
-     console.log(dateState[0]?.startDate); */
-    /*  console.log('start date',dateState[0]?.startDate, typeof dateState[0]?.startDate); 
-    console.log('newDate',new Date(), typeof new Date());
-    console.log(toString(dateState[0]?.startDate) === new Date() ); */
-    console.log('start date',startDate, typeof startDate, typeof format(new Date(), 'MMM d'));
-    
+
+
+
     const handleSearch = () => {
         setActiveTab(0)
         setShowSearchOptions(!showSearchOptions);
@@ -64,7 +62,7 @@ const Navbar = () => {
             endDate,
             totalGust
         }
-        console.log('finalSearch: ', finalSearch);
+        getDestinationsBySearchValues(finalSearch);
     }
 
     return (
@@ -85,23 +83,28 @@ const Navbar = () => {
                     {
                         location ?
 
-                        <h3 className='pl-[24px] font-semibold'>{location}</h3>
-                        :
-                        <h3 className='pl-[24px] font-semibold'>Anywhere</h3>
+                            <h3 className='pl-[24px] font-semibold'>{location}</h3>
+                            :
+                            <h3 className='pl-[24px] font-semibold'>Anywhere</h3>
 
                     }
                     <div className='h-6 w-[2px] bg-[#DDD]'></div>
-                    <h3 className='font-semibold'>Any week</h3>
+                    {
+                        startDate === format(dateState[0]?.startDate, 'MMM d') && endDate === format(dateState[0]?.startDate, 'MMM d') ?
+                            'Any week'
+                            :
+                            <h3 className='font-semibold'>{startDate} - {endDate}</h3>
+                    }
                     <div className='h-6 w-[2px] bg-[#DDD]'></div>
 
                     <div className='flex items-center justify-evenly gap-3 pr-[12px]'>
-                       {
-                        totalGust !== 0 ?
-                        <p className='text-[#717171]'>{totalGust} guests</p>
-                        :
-                        <p className='text-[#717171]'>Add guests</p>
+                        {
+                            totalGust !== 0 ?
+                                <p className='text-[#717171]'>{totalGust} guests</p>
+                                :
+                                <p className='text-[#717171]'>Add guests</p>
 
-                       }
+                        }
                         <img className='' src={search_logo} alt="" />
                     </div>
                 </div>
@@ -110,7 +113,7 @@ const Navbar = () => {
                 <div className={`${showSearchOptions ? '' : 'hidden'} transition-all `}
                     onClick={() => setShowSearchOptions(false)}
                 >
-                
+
                     <div className='flex gap-[24px] justify-center '>
                         <h4 className='text-[#717171] cursor-pointer  hover:text-[#3e3d3d] hover:font-semibold'>Stays</h4>
                         <h4 className='text-[#717171] cursor-pointer hover:text-[#3e3d3d] hover:font-semibold'>Experiences</h4>
@@ -138,7 +141,7 @@ const Navbar = () => {
             {/* tab heads */}
             <div className={`${showSearchOptions ? 'flex justify-between items-center px-3 ' : 'hidden'}  h-[66px] w-[800px] mx-auto rounded-[48px] border mt-[20px] bg-[#e6e6e6] transition-all relative`}>
 
-            <button onClick={() => setShowSearchOptions(!showSearchOptions)} className='absolute  w-[30px] h-[30px] border-2 hover:bg-[#ff385c] hover:text-white hover:border-none -right-8  top-0 text-black bg-transparent  rounded-full flex items-center justify-center '>X</button>
+                <button onClick={() => setShowSearchOptions(!showSearchOptions)} className='absolute  w-[30px] h-[30px] border-2 hover:bg-[#ff385c] hover:text-white hover:border-none -right-8  top-0 text-black bg-transparent  rounded-full flex items-center justify-center '>X</button>
 
                 {/* where */}
                 <div className={`${activeTab === 1 ? 'bg-white  hover:bg-white' : 'hover:bg-[#dddddd]'} rounded-[48px]  cursor-pointer relative`}
@@ -149,9 +152,9 @@ const Navbar = () => {
                         onChange={(event) => setLocation(event.target.value)}
                     />
                     {
-                        location && activeTab ===1  && <button className='absolute top-3 right-2  h-[25px] w-[25px] rounded-full bg-[#e6e6e6] hover:bg-[#dddddd]'
-                        onClick={()=> setLocation('')}
-                        
+                        location && activeTab === 1 && <button className='absolute top-3 right-2  h-[25px] w-[25px] rounded-full bg-[#e6e6e6] hover:bg-[#dddddd]'
+                            onClick={() => setLocation('')}
+
                         >X</button>
                     }
                 </div>
@@ -166,10 +169,10 @@ const Navbar = () => {
                     {/* <p className='ml-5 text-[#717171]'>{format(dateState[0]?.startDate, 'MMM d')}</p> */}
                     {
                         startDate ?
-                        // startDate === format(new Date(), 'MMM d') ?
-                        <p className='ml-5 text-[#717171]'>{format(dateState[0]?.startDate, 'MMM d')}</p>
-                        :
-                        <p className='ml-5 text-[#717171]'>Add dates</p>
+                            // startDate === format(new Date(), 'MMM d') ?
+                            <p className='ml-5 text-[#717171]'>{format(dateState[0]?.startDate, 'MMM d')}</p>
+                            :
+                            <p className='ml-5 text-[#717171]'>Add dates</p>
                         // <p className='ml-5 text-[#717171]'>{startDate}</p>
 
                     }
@@ -207,7 +210,7 @@ const Navbar = () => {
                     }
                 </div>
                 {
-                    totalGust !== 0 && activeTab ===3 ?
+                    totalGust !== 0 && activeTab === 3 ?
                         <p className='text-[12px] -ml-12 cursor-pointer flex justify-center items-center font-semibold h-[25px] w-[25px] rounded-full bg-[#e6e6e6] hover:bg-[#dddddd]'
                             onClick={() => setGuest(
                                 [
@@ -244,8 +247,8 @@ const Navbar = () => {
                     direction="horizontal"
                     preventSnapRefocus="disabled"
                     minDate={new Date()}
-                    // preventSnapRefocus="backward"
-                    // disabledDates=
+                // preventSnapRefocus="backward"
+                // disabledDates=
 
                 />
             </div>

@@ -16,25 +16,36 @@ const DestinationProvider = ({ children }) => {
 
     // get destinations by category
     const getDestinationsByCategory = (destinationValue) => {
-        setDestinationState([])
-    axios.get(`http://localhost:5000/destinations_by_category/${destinationValue}`)
-        .then(res => {
-            console.log('filter by catagory',res.data);
-            setDestinationState(res?.data)
-        })
-        .catch(error => console.log(error))
+        axios.get(`http://localhost:5000/destinations_by_category/${destinationValue}`)
+            .then(res => {
+                // console.log('filter by catagory', res.data);
+                setDestinationState(res?.data)
+            })
+            .catch(error => console.log(error))
     };
 
-const value = {
-    destinationState,
-    getDestinationsByCategory
+    // get destinations by search values
+    const getDestinationsBySearchValues = (searchValues) => {
+        console.log('search value', searchValues);
+        axios.post(`http://localhost:5000/destinations_by_search_value`, searchValues)
+            .then(res => {
+                console.log('filter by search value: ', res.data);
+                setDestinationState(res?.data)
+            })
+            .catch(error => console.log(error))
+    };
 
-}
-return (
-    <DestinationContext.Provider value={value}>
-        {children}
-    </DestinationContext.Provider>
-);
+
+    const value = {
+        destinationState,
+        getDestinationsByCategory,
+        getDestinationsBySearchValues,
+    }
+    return (
+        <DestinationContext.Provider value={value}>
+            {children}
+        </DestinationContext.Provider>
+    );
 };
 
 export default DestinationProvider;

@@ -4,12 +4,12 @@ import bookMarkHeartImg from '../../../assets/card/heart.png'
 import star_Img from '../../../assets/card/star.png'
 
 const SingleDestination = ({singleDestinationData}) => {
-    console.log(singleDestinationData);
+ 
     const {location_name,img,price, available_date } = singleDestinationData || {};
-    console.log(available_date);
+ 
     const startDate = available_date[0];
-    const endDate = available_date[2];
-    console.log(startDate, endDate);
+    const endDate = available_date[available_date.length -1];
+    // console.log(startDate, endDate);
     return (
         <div className=' w-[313px] h-[397px] relative '>
             <figure className='w-[313px] h-[290px] rounded-[8px] border '>
