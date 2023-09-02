@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
@@ -18,26 +18,22 @@ import guest_house from '../../../assets/modal/guest_house.png'
 import { DestinationContext } from "../../../provider/DestinationProvider";
 
 
-/* import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/free-mode';
-
-import { FreeMode, Pagination, Navigation } from 'swiper/modules'; */
 
 
 
 const Filter = () => {
 
-    const { getDestinationsByCategory } = useContext(DestinationContext);
-
-    const [priceSliderValue, setPriceSliderValue] = useState([0, 1000]);
+    const { getDestinationsByCategory, destinationState, getDynamicModalRealTimeData, showPlacesValue, getFilteredDestinations } = useContext(DestinationContext);
 
 
-    // const [swiperRef, setSwiperRef] = useState(null);
+    // max price
+    const maxPrice = destinationState?.reduce((max, p) => p?.price > max ? p?.price : max, destinationState[0]?.price);
+    console.log('maxPrice', maxPrice, typeof maxPrice);
 
 
+    const [priceSliderValue, setPriceSliderValue] = useState([0, maxPrice || 400]);
+
+    // console.log(priceSliderValue);
     // modal
     const [showModal, setShowModal] = useState(false);
 
@@ -62,9 +58,11 @@ const Filter = () => {
     );
 
 
+
+
+
     // handle Property type selection
     const handlePropertyTypeSelection = (property, value) => {
-
 
         if (property === 'home') {
             if (propertyValue[0][property] === 0) {
@@ -131,68 +129,43 @@ const Filter = () => {
         getDestinationsByCategory(filterValue)
     }
 
+
+    // dynamic modal real time filter
+    useEffect(() => {
+
+        const dynamicModalFilterValue = [
+            {
+                price_range: priceSliderValue,
+                bedRoomChoice: bedRoomChoice,
+                bedChoice: bedChoice,
+                bathRoomChoice: bathRoomChoice,
+                propertyValue: propertyValue,
+
+            }
+        ]
+
+        getDynamicModalRealTimeData(dynamicModalFilterValue);
+    }, [priceSliderValue, bedRoomChoice, bedChoice, bathRoomChoice, propertyValue, getDynamicModalRealTimeData])
+
+    // handleFilterBtn
+    const handleFilterBtn = () => {
+        const dynamicModalFilterValue = [
+            {
+                price_range: priceSliderValue,
+                bedRoomChoice: bedRoomChoice,
+                bedChoice: bedChoice,
+                bathRoomChoice: bathRoomChoice,
+                propertyValue: propertyValue,
+
+            }
+        ]
+        getFilteredDestinations(dynamicModalFilterValue);
+    }
+
+
     return (
         <div className="my-container py-[28px] ">
 
-            {/* swiper slider */}
-            <>
-                {/* <Swiper
-                onSwiper={setSwiperRef}
-                slidesPerView={6}
-                centeredSlides={true}
-                spaceBetween={5}
-                freeMode={true}
-                breakpoints={{
-                    640: {
-                      slidesPerView: 2,
-                      spaceBetween: 20,
-                    },
-                    768: {
-                      slidesPerView: 4,
-                      spaceBetween: 40,
-                    },
-                    1024: {
-                      slidesPerView: 5,
-                      spaceBetween: 50,
-                    },
-                  }}
-                navigation={true}
-                modules={[FreeMode,Pagination, Navigation]}
-                className="mySwiper"
-            >
-                <SwiperSlide>
-
-                    <img onClick={() => handleCategoryFilter('camping')} className="opacity-60 hover:opacity-100 cursor-pointer" src={camp_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('lack_font')} className="opacity-60 hover:opacity-100 cursor-pointer" src={lack_font_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('national_park')} className="opacity-60 hover:opacity-100 cursor-pointer" src={national_park_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('cabin')} className="opacity-60 hover:opacity-100 cursor-pointer" src={cabin_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('amazing_pools')} className="opacity-60 hover:opacity-100 cursor-pointer" src={amazing_pools} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('omg')} className="opacity-60 hover:opacity-100 cursor-pointer" src={omg_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('lack_font')} className="opacity-60 hover:opacity-100 cursor-pointer" src={lack_font_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('national_park')} className="opacity-60 hover:opacity-100 cursor-pointer" src={national_park_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('cabin')} className="opacity-60 hover:opacity-100 cursor-pointer" src={cabin_logo} alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img onClick={() => handleCategoryFilter('amazing_pools')} className="opacity-60 hover:opacity-100 cursor-pointer" src={amazing_pools} alt="" />
-                </SwiperSlide>
-            </Swiper> */}
-            </>
 
             <div className="flex justify-between items-center">
 
@@ -231,7 +204,7 @@ const Filter = () => {
 
                         {/* <!-- Modal container --> */}
                         <div className="bg-white rounded-lg w-[900px] max-h-4/5 overflow-hidden z-10">
-                            {/* <div className="bg-white rounded-lg w-11/12 md:w-1/2 max-h-4/5 overflow-hidden z-10"> */}
+
 
                             {/* <!-- Modal header --> */}
                             <div className="  px-6 py-3 flex items-center
@@ -257,7 +230,7 @@ const Filter = () => {
 
                             {/* <!-- Modal body --> */}
                             <div className="px-8 py-6 max-h-96 overflow-x-hidden  overflow-auto">
-                                {/* <div className="p-6 max-h-64 overflow-auto"> */}
+
                                 {/* <!-- Scrollable content goes here --> */}
 
                                 {/* Type of Place */}
@@ -301,7 +274,7 @@ const Filter = () => {
                                 <div className="mt-5">
 
                                     <h3 className="text-2xl font-semibold">Price range</h3>
-                                    <RangeSlider className=' mt-8' min={0} max={10000} value={priceSliderValue} onInput={setPriceSliderValue}
+                                    <RangeSlider className=' mt-8' min={0} max={maxPrice || 400} value={priceSliderValue} onInput={setPriceSliderValue}
                                         id="range-slider-black"
                                     />
 
@@ -530,8 +503,13 @@ const Filter = () => {
                             {/* <!-- Modal footer --> */}
                             <div className=" border border-solid border-slate-200 px-6 py-4 flex items-center justify-between">
                                 <p className="underline font-bold">Clear all</p>
-                                <button className="w-[172px] h-[50px] rounded-xl font-bold text-white bg-black">
-                                    <p>Show <span>770</span> places</p>
+                                <button className="w-[172px] h-[50px] rounded-xl font-bold text-white bg-black"
+                                    onClick={handleFilterBtn}
+                                >
+                                    <p
+                                        onClick={() => setShowModal(false)}
+                                    >Show <span>{showPlacesValue}</span> places</p>
+
                                 </button>
                             </div>
                         </div>
