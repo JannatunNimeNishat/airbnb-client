@@ -15,6 +15,7 @@ import './Filter.css'
 import { BiHome } from "react-icons/bi";
 import apartment from '../../../assets/modal/apartment.png'
 import guest_house from '../../../assets/modal/guest_house.png'
+
 import { DestinationContext } from "../../../provider/DestinationProvider";
 
 
@@ -22,18 +23,19 @@ import { DestinationContext } from "../../../provider/DestinationProvider";
 
 
 const Filter = () => {
-
+    console.log('filter ');
     const { getDestinationsByCategory, destinationState, getDynamicModalRealTimeData, showPlacesValue, getFilteredDestinations } = useContext(DestinationContext);
 
 
     // max price
     const maxPrice = destinationState?.reduce((max, p) => p?.price > max ? p?.price : max, destinationState[0]?.price);
-    console.log('maxPrice', maxPrice, typeof maxPrice);
+    // console.log('maxPrice', maxPrice, typeof maxPrice);
 
 
     const [priceSliderValue, setPriceSliderValue] = useState([0, maxPrice || 400]);
 
     // console.log(priceSliderValue);
+
     // modal
     const [showModal, setShowModal] = useState(false);
 
@@ -56,10 +58,6 @@ const Filter = () => {
             }
         ]
     );
-
-
-
-
 
     // handle Property type selection
     const handlePropertyTypeSelection = (property, value) => {

@@ -18,10 +18,15 @@ import { DestinationContext } from '../../../provider/DestinationProvider';
 
 
 import { CgOptions } from "react-icons/cg";
+import FilterModal from '../../../components/FilterModal/FilterModal';
 
 const Navbar = () => {
 
-    const { getDestinationsBySearchValues } = useContext(DestinationContext);
+    const { getDestinationsBySearchValues,handleModalState,filterModalState } = useContext(DestinationContext);
+
+    // modal
+    const [showModal, setShowModal] = useState(false);
+
 
     const [activeTab, setActiveTab] = useState(1);
 
@@ -85,11 +90,25 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div className='w-[28px] h-[28px] border rounded-full flex items-center justify-center'>
+                <div className='w-[28px] h-[28px] border rounded-full flex items-center justify-center'
+                    onClick={handleModalState}
+                    
+                >
                     <CgOptions />
                 </div>
             </div>
 
+            <div>
+                {
+                    filterModalState ? (
+                        <>
+                            <FilterModal />
+                        </>
+                    ) : null
+                }
+            </div>
+
+            {/* lg nav bar */}
             <div className={`${!showSearchOptions && 'shadow'}`}>
 
 
