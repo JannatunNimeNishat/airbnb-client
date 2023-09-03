@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .my-container{
-    @apply w-[1270px] mx-auto;
+    @apply w-full lg:w-[1280px] mx-auto;
 }

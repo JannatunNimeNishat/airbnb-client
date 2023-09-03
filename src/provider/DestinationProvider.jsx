@@ -17,7 +17,7 @@ const DestinationProvider = ({ children }) => {
 
     // fetch all destinations
     useEffect(() => {
-        axios.get('http://localhost:5000/all_destinations')
+        axios.get('https://airbnb-server-virid.vercel.app/all_destinations')
             .then(res => {
                 getData(res?.data)
                 setDestinationState(res.data);
@@ -30,7 +30,7 @@ const DestinationProvider = ({ children }) => {
     console.log('all destinations', data);
     // get destinations by category
     const getDestinationsByCategory = (destinationValue) => {
-        axios.get(`http://localhost:5000/destinations_by_category/${destinationValue}`)
+        axios.get(`https://airbnb-server-virid.vercel.app/destinations_by_category/${destinationValue}`)
             .then(res => {
 
                 setDestinationState(res?.data)
@@ -41,7 +41,7 @@ const DestinationProvider = ({ children }) => {
     // get destinations by search values
     const getDestinationsBySearchValues = (searchValues) => {
         console.log('search value', searchValues);
-        axios.post(`http://localhost:5000/destinations_by_search_value`, searchValues)
+        axios.post(`https://airbnb-server-virid.vercel.app/destinations_by_search_value`, searchValues)
             .then(res => {
                 console.log('filter by search value: ', res.data);
                 setDestinationState(res?.data)
@@ -66,16 +66,6 @@ const DestinationProvider = ({ children }) => {
             && (propertyValue[0]['home'] !== 0 ? destination.property_type?.includes('home') : true)
             && (propertyValue[0]['apartment'] !== 0 ? destination.property_type?.includes('apartment') : true)
             && (propertyValue[0]['guesthouse'] !== 0 ? destination.property_type?.includes('guesthouse') : true)
-
-            /* && ((propertyValue[0]['home'] !== 0 || propertyValue[0]['apartment'] !== 0 || propertyValue[0]['guesthouse'] !== 0)
-                ?
-                (
-                    destination.property_type?.includes('home') &&
-                    destination.property_type?.includes('apartment') &&
-                    destination.property_type?.includes('guesthouse')
-
-                )
-                : true) */
 
         );
 

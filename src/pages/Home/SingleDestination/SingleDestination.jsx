@@ -11,11 +11,15 @@ const SingleDestination = ({singleDestinationData}) => {
     const endDate = available_date[available_date.length -1];
     // console.log(startDate, endDate);
     return (
-        <div className=' w-[313px] h-[397px] relative '>
-            <figure className='w-[313px] h-[290px] rounded-[8px] border '>
+        <div className=' lg:w-[313px] lg:h-[397px] relative px-5 lg:px-0 mt-6 lg:mt-0'>
+            <figure className='w-full lg:w-[313px] h-[250px] lg:h-[290px] rounded-[8px] border mx-auto '>
+
+      
+
+
                 <img className='rounded-[8px] h-full w-full ' src={img} alt="" />
             </figure>
-            <img className='absolute top-4 right-4 cursor-pointer ' src={bookMarkHeartImg} alt="" />
+            <img className='absolute top-4 right-8 lg:right-4 cursor-pointer h-6 lg:h-8 ' src={bookMarkHeartImg} alt="" />
             <div className='flex items-center justify-between mt-[8px]'>
                 <h3 className='font-semibold'>{location_name}</h3>
                 <p className='flex items-center gap-2'>

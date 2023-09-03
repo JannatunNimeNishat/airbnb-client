@@ -69,8 +69,8 @@ const Navbar = () => {
 
         <div className={`${!showSearchOptions && 'shadow'}`}>
 
-            {/* <nav className={`${showSearchOptions ? 'h-[400px]' : '' }  flex   justify-between my-container p-4`}> */}
-            <nav className={`  flex items-center  justify-between my-container ${showSearchOptions ? 'p-4' : 'p-4'}  `}>
+           
+            <nav className={`hidden  lg:flex items-center  justify-between my-container ${showSearchOptions ? 'p-4' : 'p-4'}  `}>
                 {/* logo */}
                 <Link
                     onClick={() => window.location.reload()}
@@ -79,7 +79,9 @@ const Navbar = () => {
                 </Link>
 
                 {/* search */}
-                <div className={`${showSearchOptions ? 'hidden' : 'flex '} cursor-pointer h-[48px] rounded-[48px]  items-center  gap-3 border shadow-lg`}
+                <div className={`hidden   ${showSearchOptions ? 'hidden' : 'lg:flex '} cursor-pointer h-[48px] rounded-[48px]  items-center  gap-3 border shadow-lg
+               
+                `}
                     onClick={() => setShowSearchOptions(true)}
                 >
                     {

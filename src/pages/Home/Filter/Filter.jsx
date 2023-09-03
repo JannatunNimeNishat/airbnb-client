@@ -164,27 +164,27 @@ const Filter = () => {
 
 
     return (
-        <div className="my-container py-[28px] ">
+        <div className="my-container py-8 lg:py-[28px] ">
 
 
-            <div className="flex justify-between items-center">
+            <div className="px-3 lg:px-0 flex justify-between   items-center ">
 
-                <img onClick={() => handleCategoryFilter('cabin')} className="opacity-60 hover:opacity-100 cursor-pointer" src={cabin_logo} alt="" />
+                <img onClick={() => handleCategoryFilter('cabin')} className="h-8 lg:h-full opacity-60 hover:opacity-100 cursor-pointer" src={cabin_logo} alt="" />
 
-                <img onClick={() => handleCategoryFilter('camping')} className="opacity-60 hover:opacity-100 cursor-pointer" src={camp_logo} alt="" />
-                <img onClick={() => handleCategoryFilter('lack_font')} className="opacity-60 hover:opacity-100 cursor-pointer" src={lack_font_logo} alt="" />
+                <img onClick={() => handleCategoryFilter('camping')} className="h-8 lg:h-full opacity-60 hover:opacity-100 cursor-pointer" src={camp_logo} alt="" />
+                <img onClick={() => handleCategoryFilter('lack_font')} className="h-8 lg:h-full opacity-60 hover:opacity-100 cursor-pointer" src={lack_font_logo} alt="" />
 
-                <img onClick={() => handleCategoryFilter('national_park')} className="opacity-60 hover:opacity-100 cursor-pointer" src={national_park_logo} alt="" />
-
-
+                <img onClick={() => handleCategoryFilter('national_park')} className="h-8 lg:h-full   opacity-60 hover:opacity-100 cursor-pointer" src={national_park_logo} alt="" />
 
 
-                <img onClick={() => handleCategoryFilter('amazing_pools')} className="opacity-60 hover:opacity-100 cursor-pointer" src={amazing_pools} alt="" />
 
 
-                <img onClick={() => handleCategoryFilter('omg')} className="opacity-60 hover:opacity-100 cursor-pointer" src={omg_logo} alt="" />
+                <img onClick={() => handleCategoryFilter('amazing_pools')} className=" h-8 lg:h-full   opacity-60 hover:opacity-100 cursor-pointer" src={amazing_pools} alt="" />
 
-                <div className="flex items-center  gap-5">
+
+                <img onClick={() => handleCategoryFilter('omg')} className="hidden lg:block opacity-60 hover:opacity-100 cursor-pointer" src={omg_logo} alt="" />
+
+                <div className="hidden lg:flex items-center  gap-5">
                     <img className="cursor-pointer" src={arrow_right_logo} alt="" />
                     <button className="h-[48px] w-[75px] flex items-center justify-center gap-2 rounded-[8px] border"
                         onClick={() => setShowModal(true)}
