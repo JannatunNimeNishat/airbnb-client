@@ -165,9 +165,11 @@ const Filter = () => {
 
     return (
         <div className="my-container py-8 lg:py-[28px] ">
+        {/* // <div className="my-container mb-24 "> */}
 
-
+        {/* filter by category */}
             <div className="px-3 lg:px-0 flex justify-between   items-center ">
+          {/*   <div className="px-3 lg:px-0 flex justify-between   items-center fixed bg-white mt-20 z-10 w-full top-10"> */}
 
                 <img onClick={() => handleCategoryFilter('cabin')} className="h-8 lg:h-full opacity-60 hover:opacity-100 cursor-pointer" src={cabin_logo} alt="" />
 
